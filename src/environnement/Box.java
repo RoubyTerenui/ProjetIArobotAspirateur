@@ -6,7 +6,6 @@ public class Box {
 
     //Attributes
     private int jewel, dirt;
-
     //Construct
     Box(int j, int d)
     {
