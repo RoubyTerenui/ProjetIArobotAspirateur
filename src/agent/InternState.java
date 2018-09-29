@@ -1,12 +1,12 @@
 package agent;
 
-import environnement.Box;
 import environnement.Grid;
 
 public class InternState {
+	private boolean IamAlive;
 	private Grid belief;
 	private int[] desire;//TO DO revoir les desires ce n'est pas clair ce que l'on doit y mettre
-	private Effectors[] intent;
+	private String[] intent;
 
 	public Grid getBelief() {
 		return belief;
@@ -14,6 +14,14 @@ public class InternState {
 
 	public void setBelief(Grid belief) {
 		this.belief = belief;
+	}
+
+	public boolean isIamAlive() {
+		return IamAlive;
+	}
+
+	public void setIamAlive(boolean iamAlive) {
+		IamAlive = iamAlive;
 	}
 	
 }
