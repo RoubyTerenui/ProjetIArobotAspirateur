@@ -3,6 +3,15 @@ package agent;
 import environnement.Grid;
 
 public class Agent {//Agent which will evolve in the environment he is based on a purpose model
+	//Fields
+	
+	private InternState bdi;
+	private int positionj;
+	private int positioni;
+	private Sensors sensors;
+	private Effectors effectors;
+	private int electricityUnitUsed;
+	
 	//Getter and Setter
 	public int getPositionj() {
 		return positionj;
@@ -36,11 +45,5 @@ public class Agent {//Agent which will evolve in the environment he is based on 
 	public void setElectricityUnitUsed(int electricityUnitUsed) {
 		this.electricityUnitUsed = electricityUnitUsed;
 	}
-	//Fields
-	private InternState bdi;
-	private int positionj;
-	private int positioni;
-	private Sensors sensors;
-	private Effectors effectors;
-	private int electricityUnitUsed;
+
 }
