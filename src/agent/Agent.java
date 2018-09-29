@@ -20,11 +20,11 @@ public class Agent {//Agent which will evolve in the environment he is based on 
 		return effectors;
 	}
 	public Grid getBelief() {
-		return belief;
+		return bdi.getBelief();
 	}
 
 	public void setBelief(Grid belief) {
-		this.belief = belief;
+		bdi.setBelief(belief);
 	}
 	
 	public Sensors getSensors() {
@@ -37,7 +37,7 @@ public class Agent {//Agent which will evolve in the environment he is based on 
 		this.electricityUnitUsed = electricityUnitUsed;
 	}
 	//Fields
-	private Grid belief;
+	private InternState bdi;
 	private int positionj;
 	private int positioni;
 	private Sensors sensors;
