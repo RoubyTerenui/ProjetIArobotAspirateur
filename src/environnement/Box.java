@@ -1,13 +1,15 @@
 package environnement;
 
 import java.util.Random;
+import java.lang.Math;
 
 public class Box {
 
     //Attributes
     private int jewel, dirt;
+
     //Construct
-    Box(int j, int d)
+    public Box(int j, int d)
     {
         jewel = j;
         dirt = d;
@@ -41,14 +43,18 @@ public class Box {
     }
 
     public int generateJewel(){
-        Random ran = new Random();
-        int x = ran.nextInt(0) + 1;
-        return x;
+        double proba = Math.random() * 1000;
+        if(proba < 50) {
+            return 1;
+        }
+        else return 0;
     }
 
     public int generateDirt(){
-        Random ran = new Random();
-        int x = ran.nextInt(0) + 1;
-        return x;
+        double proba = Math.random() * 1000;
+        if(proba < 200) {
+            return 1;
+        }
+        else return 0;
     }
 }
