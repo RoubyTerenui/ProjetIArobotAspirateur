@@ -4,6 +4,7 @@ public class Grid implements Runnable {//Grid of the environment with the functi
 	Box[][] grid;
 	int mesureDePerformance;
 	
+	
 	//Constructor
 	public Grid() {
 		for (int i=0;i<10;i++) {
