@@ -11,6 +11,11 @@ public class Agent {//Agent which will evolve in the environment he is based on 
 	private Sensors sensors;
 	private Effectors effectors;
 	private int electricityUnitUsed;
+
+	public Agent(int x, int y){
+		positioni = x;
+		positionj = y;
+	}
 	
 	//Getter and Setter
 	public int getPositionj() {
