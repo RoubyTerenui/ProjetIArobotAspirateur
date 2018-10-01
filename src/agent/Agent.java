@@ -36,11 +36,9 @@ public class Agent {//Agent which will evolve in the environment he is based on 
 	public Grid getBelief() {
 		return bdi.getBelief();
 	}
-
 	public void setBelief(Grid belief) {
 		bdi.setBelief(belief);
 	}
-	
 	public Sensors getSensors() {
 		return sensors;
 	}
