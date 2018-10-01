@@ -1,5 +1,6 @@
 package main;
 
+import environnement.Box;
 import environnement.Grid;
 import environnement.UI;
 import agent.Agent;
@@ -9,7 +10,7 @@ public class main {
 	public static void main(String[] args) {
 		//Bloc de Test de l'ui
 		Agent Test_Agent = new Agent(0,0);
-		Grid environment=new Grid();
+		Grid environment=new Grid(new Box[10][10]);
 		environment.getBoxI(9,5).setDirt(1);
 		environment.getBoxI(2,2).setDirt(1);
 		environment.getBoxI(3,3).setJewel(1);
