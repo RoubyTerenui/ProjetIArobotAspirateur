@@ -6,11 +6,13 @@ public class Grid implements Runnable {
 	//attributes
 	Box[][] grid;
 	int mesureDePerformance;
-	
+	boolean environmentRunning;
 	
 	//Constructor
 	public Grid(Box[][] g) {
 		grid = g;
+	  mesureDePerformance=0;
+		environmentRunning=true;
 		for (int i=0;i<10;i++) {
 			for(int j=0;j<10;j++) {
 				grid[i][j]=new Box(0,0);
@@ -42,7 +44,8 @@ public class Grid implements Runnable {
 
 	@Override
 	public void run() {//Method that indicate what the thread will do
-		// TODO Auto-generated method stub
-		
+		while (environmentRunning) {
+			generateEnvironment();
+		}
 	}
 }

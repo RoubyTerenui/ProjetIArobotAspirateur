@@ -48,5 +48,8 @@ public class Agent {//Agent which will evolve in the environment he is based on 
 	public void setElectricityUnitUsed(int electricityUnitUsed) {
 		this.electricityUnitUsed = electricityUnitUsed;
 	}
-
+	// Other Methods
+	public void depth_LimitedSearch(Grid environment,int l) {
+		
+	}
 }
