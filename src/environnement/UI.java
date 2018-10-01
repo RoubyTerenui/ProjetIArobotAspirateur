@@ -6,26 +6,23 @@ import java.awt.*;
 import agent.Agent;
 
 public class UI extends JFrame implements Runnable{
-
-    Border Line = BorderFactory.createLineBorder(Color.black,3);
-    public Agent Test_Agent;
-    JFrame Terrain ;
-    JPanel GrillePan = new JPanel (new GridLayout(10,10));
+	//Fields
+    private Border Line = BorderFactory.createLineBorder(Color.black,3);
+    private Agent Test_Agent;
+	private JFrame Terrain ;
+    private Grid environment;
+	private JPanel GrillePan = new JPanel (new GridLayout(10,10));
+    //Process
     public void run(){
-
-        while(true) {
-            Test_Agent.setPositioni(Test_Agent.getPositioni() + 1);
-            this.updateUI(Test_Agent);
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
-        }
+            this.updateUI();
     }
-
-    public UI(Agent Test_Agent) {
+    //Constructor
+    public UI(Agent Test_Agent,Grid environment) {
         Terrain=new JFrame();
         GrillePan = new JPanel (new GridLayout(10,10));
         for(int i = 0; i<100;i++){
@@ -33,24 +30,45 @@ public class UI extends JFrame implements Runnable{
             Content.setBorder(Line);
             GrillePan.add(Content);
         }
+        this.environment=environment;
         this.Test_Agent=Test_Agent;
         GrillePan.setBorder(Line);
         Terrain.add(GrillePan);
         Terrain.setVisible(true);
         Terrain.setExtendedState(Terrain.getExtendedState() | JFrame.MAXIMIZED_BOTH);
     }
+    //getter and setter
+    public Grid getEnvironment() {
+		return environment;
+	}
+	public void setEnvironment(Grid environment) {
+		this.environment = environment;
+	}
 
-    public void updateUI(Agent a) {
-//        JPanel GrillePan = new JPanel (new GridLayout(10,10));
-        System.out.println((a.getPositioni() + (a.getPositionj()*10)));
-        for(int i = 0; i<100;i++){
-//            JPanel Content = new JPanel();
-            GrillePan.getComponent(i).setBackground(Color.white);
-            if (a.getPositioni() + (a.getPositionj()*10)==i) {
-                System.out.println((a.getPositioni() + (a.getPositionj()*10)));
-                GrillePan.getComponent(i).setBackground(Color.blue);
+    public Agent getTest_Agent() {
+		return Test_Agent;
+	}
+
+	public void setTest_Agent(Agent test_Agent) {
+		Test_Agent = test_Agent;
+	}
+	
+	//Other Methods
+    public void updateUI() {
+        for(int i = 0; i<10;i++){
+        	for(int j=0;j<10;j++) {
+	            GrillePan.getComponent(i*10+j).setBackground(Color.white);
+	            if (Test_Agent.getPositioni() + (Test_Agent.getPositionj()*10)==i*10+j && Test_Agent.getPositioni()<10 && Test_Agent.getPositionj()<10) {
+	                System.out.println((Test_Agent.getPositioni() + (Test_Agent.getPositionj()*10)));
+	                GrillePan.getComponent(i*10+j).setBackground(Color.blue);
+	            }
+	            if (this.getEnvironment().getBoxI(i, j).getDirt()==1) {
+	                GrillePan.getComponent(i*10+j).setBackground(Color.green);//TO DO dessiner des objet
+	            }
+	            if (this.getEnvironment().getBoxI(i, j).getJewel()==1) {
+	                GrillePan.getComponent(i*10+j).setBackground(Color.red);//TO DO dessiner des objet
+	            }
             }
-//            GrillePan.add(Content);
         }
         this.Terrain.setContentPane(GrillePan);
     }

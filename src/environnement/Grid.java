@@ -40,7 +40,6 @@ public class Grid implements Runnable {//Grid of the environment with the functi
 	@Override
 	public void run() {//Method that indicate what the thread will do
 		while (environmentRunning) {
-
 			generateEnvironment();
 		}
 	}
