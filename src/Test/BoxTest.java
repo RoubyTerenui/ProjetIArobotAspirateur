@@ -8,7 +8,7 @@ public class BoxTest {
 
     @Test
     public void TestGenerateJewel(){
-        Box box = new Box(0,0);
+        Box box = new Box(0,0,0,0);
         if (box.generateJewel() != 0){
             assertEquals(1,box.generateJewel());
         }
@@ -17,7 +17,7 @@ public class BoxTest {
 
     @Test
     public void TestGenerateDirt(){
-        Box box = new Box(0,0);
+        Box box = new Box(0,0,0,0);
         if (box.generateDirt() != 0){
             assertEquals(1,box.generateDirt());
         }

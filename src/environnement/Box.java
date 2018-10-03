@@ -7,12 +7,14 @@ public class Box {
 
     //Attributes
     private int jewel, dirt;
-
+    private int positionI,positionJ;
     //Construct
-    public Box(int j, int d)
+    public Box(int j, int d,int positionI,int positionJ)
     {
         jewel = j;
         dirt = d;
+        this.setPositionJ(positionJ);
+        this.setPositionI(positionI);
     }
 
     //Getter and Setter
@@ -36,7 +38,23 @@ public class Box {
         this.dirt = d;
     }
 
-    //Method
+    public int getPositionJ() {
+		return positionJ;
+	}
+
+	public void setPositionJ(int positionJ) {
+		this.positionJ = positionJ;
+	}
+
+	public int getPositionI() {
+		return positionI;
+	}
+
+	public void setPositionI(int positionI) {
+		this.positionI = positionI;
+	}
+
+	//Method
     public void print()
     {
         System.out.println("jewel: " + jewel + " dirt: " + dirt);
