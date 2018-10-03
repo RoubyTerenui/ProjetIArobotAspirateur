@@ -11,6 +11,11 @@ public class Agent {//Agent which will evolve in the environment he is based on 
 	private Sensors sensors;
 	private Effectors effectors;
 	private int electricityUnitUsed;
+
+	public Agent(int x, int y){
+		positioni = x;
+		positionj = y;
+	}
 	
 	//Getter and Setter
 	public int getPositionj() {
@@ -31,11 +36,9 @@ public class Agent {//Agent which will evolve in the environment he is based on 
 	public Grid getBelief() {
 		return bdi.getBelief();
 	}
-
 	public void setBelief(Grid belief) {
 		bdi.setBelief(belief);
 	}
-	
 	public Sensors getSensors() {
 		return sensors;
 	}
@@ -45,5 +48,8 @@ public class Agent {//Agent which will evolve in the environment he is based on 
 	public void setElectricityUnitUsed(int electricityUnitUsed) {
 		this.electricityUnitUsed = electricityUnitUsed;
 	}
-
+	// Other Methods
+	public void depth_LimitedSearch(Grid environment,int l) {
+		
+	}
 }
