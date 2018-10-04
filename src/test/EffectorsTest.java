@@ -8,7 +8,7 @@ import agent.Agent;
 import agent.Effectors;
 import environnement.Box;
 
-public class Test_Effectors {
+public class EffectorsTest {
 
 	@Test
 	public void test() {
