@@ -58,7 +58,7 @@ public class UI extends JFrame implements Runnable{
         for(int i = 0; i<10;i++){
         	for(int j=0;j<10;j++) {
 	            GrillePan.getComponent(i*10+j).setBackground(Color.white);
-	            if (Test_Agent.getPositioni() + (Test_Agent.getPositionj()*10)==i*10+j && Test_Agent.getPositioni()<10 && Test_Agent.getPositionj()<10) {
+	            if (Test_Agent.getPositioni()*10 + (Test_Agent.getPositionj())==i*10+j && Test_Agent.getPositioni()<10 && Test_Agent.getPositionj()<10) {
 	                System.out.println((Test_Agent.getPositioni() + (Test_Agent.getPositionj()*10)));
 	                GrillePan.getComponent(i*10+j).setBackground(Color.blue);
 	            }

@@ -1,4 +1,4 @@
-package Test;
+package test;
 
 import environnement.Box;
 import environnement.Grid;

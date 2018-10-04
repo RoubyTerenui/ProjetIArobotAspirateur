@@ -1,22 +1,32 @@
 package agent;
 
+import java.util.List;
+
+import environnement.Box;
 import environnement.Grid;
 
 public class InternState {
 	private boolean IamAlive;
 	private Grid belief;
 	private String[] intent;
-	
-	//Constructor
-	
+
+	// Constructor
+
 	public InternState(boolean iamAlive, Grid belief, String[] intent) {
 		super();
 		IamAlive = iamAlive;
 		this.belief = belief;
 		this.setIntent(intent);
 	}
-	
-	//Getter and Setter
+
+	public InternState() {
+		super();
+		IamAlive = true;
+		belief = new Grid(new Box[10][10]);
+		this.intent = new String[0];
+	}
+
+	// Getter and Setter
 	public Grid getBelief() {
 		return belief;
 	}
@@ -32,6 +42,7 @@ public class InternState {
 	public void setIamAlive(boolean iamAlive) {
 		IamAlive = iamAlive;
 	}
+
 	public String[] getIntent() {
 		return intent;
 	}
@@ -39,10 +50,5 @@ public class InternState {
 	public void setIntent(String[] intent) {
 		this.intent = intent;
 	}
-
-	// Other Methods
-	public void depth_LimitedSearch(Grid environment,int l) {
-		
-	}
-	
 }
+
