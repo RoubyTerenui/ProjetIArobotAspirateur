@@ -8,7 +8,7 @@ import agent.Agent;
 import environnement.Box;
 import environnement.Grid;
 
-public class Test_Sensors {
+public class SensorsTest {
 
 	@Test
 	public void test() {
