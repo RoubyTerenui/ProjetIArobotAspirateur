@@ -6,8 +6,8 @@ public class Sensors {//Class that regroup all the sensors of the agent and the 
 	public Sensors() {
 		super();
 	}
-	public void analyzeEnvironment(Grid environment,Agent agent) {
-		Grid res=environment.clone();
-		agent.setBelief(res);
+	public Grid analyzeEnvironment(Grid environment) {
+		
+		return environment;
 	}
 }

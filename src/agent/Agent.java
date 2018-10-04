@@ -84,6 +84,12 @@ public class Agent {// Agent which will evolve in the environment he is based on
 		this.electricityUsed = electricityUsed;
 	}
 
+	public InternState getBdi() {
+		return bdi;
+	}
+	public void setBdi(InternState bdi) {
+		this.bdi = bdi;
+	}
 	// Other Methods
 	public Box act(String intent, Grid environment) {
 
@@ -114,6 +120,9 @@ public class Agent {// Agent which will evolve in the environment he is based on
 	}
 	
 	// Other Methods
+	public void observ(Grid environment) {
+		this.setBelief(this.sensors.analyzeEnvironment(environment));
+	}
 	public Node depth_LimitedSearch(Grid environment, int l) {
 		Node initialNode=new Node(environment.getBoxI(this.getPositioni(),this.getPositionj()));
 		return(recursive_DLS(initialNode, environment, l));
