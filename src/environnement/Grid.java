@@ -23,7 +23,6 @@ public class Grid implements Runnable {
 
 	public Grid clone() {
 		Grid res=new Grid(new Box[10][10]);
-		res.grid = this.getGrid();
 		res.mesureDePerformance = this.getMesureDePerformance();
 		res.environmentRunning = this.environmentRunning;
 		for (int i = 0; i < 10; i++) {
@@ -39,7 +38,7 @@ public class Grid implements Runnable {
 		return (grid[i][j]);
 	}
 	public void setBoxI(int i, int j, Box box) {
-		grid[i][j]=box;
+		grid[i][j]=box.clone();
 	}
 
 	public Box[][] getGrid() {

@@ -16,6 +16,11 @@ public class Box {
         this.setPositionJ(positionJ);
         this.setPositionI(positionI);
     }
+    public Box clone() {
+    	Box box=new Box(jewel,dirt,positionI,positionJ);
+		return box;
+    	
+    }
 
     //Getter and Setter
     public int getJewel()
