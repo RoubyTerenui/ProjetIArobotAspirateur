@@ -2,47 +2,35 @@ package agent;
 
 import environnement.Box;
 
-public class Effectors {//Class regrouping all the action the agent can do and the hardware that allows it
-	void saisir(Box box,String string){
-		if(string=="saisir") {
-			box.setJewel(0);
-		}
+public class Effectors {// Class regrouping all the action the agent can do and the hardware that allows
+						// it
+	public Effectors() {
+		super();
 	}
-	void aspirer(Box box,String string) {
-		if(string=="aspirer")
-		{
-			box.setDirt(0);
-			box.setJewel(0);
-		}
+
+	public void grab(Box box) {
+		box.setJewel(0);
 	}
-	void move(Agent agent,boolean horizontal,boolean front,String string) throws IndexOutOfBoundsException{
-		if(string=="move") 
-		{
-	
-			try{
-				if( horizontal){//look whether you move vertically or horizontally
-			
-					if(front) {//look whether you advance or you go backward in the grid 
-						agent.setPositionj(agent.getPositionj()+1);
-					}
-					else {//look whether you advance or you go backward in the grid 
-						agent.setPositionj(agent.getPositionj()-1);
-					}
-				}
-				else {//look whether you move vertically or horizontally
-					if(front) {//look whether you advance or you go backward in the grid 
-						agent.setPositioni(agent.getPositioni()+1);
-					}
-					else {//look whether you advance or you go backward in the grid 
-						agent.setPositioni(agent.getPositioni()-1);
-					
-					}
-				}
-			}
-			catch(IndexOutOfBoundsException e){
-				e.printStackTrace();
-				
-			}
+
+	public void aspire(Box box) {
+		box.setDirt(0);
+		box.setJewel(0);
+	}
+
+	public void move(Agent agent, String string)  {
+		if (string == "right") {// look whether you move vertically or horizontally
+			if(agent.getPositionj()<99)
+				{agent.setPositionj(agent.getPositionj() + 1);}
 		}
+		if (string == "left") {
+			if(agent.getPositionj()>0) {agent.setPositionj(agent.getPositionj() - 1);}
+		}
+		if (string == "down") {
+			if(agent.getPositioni()<99) {agent.setPositioni(agent.getPositioni() + 1);}
+		}
+		if (string == "up") {
+			if(agent.getPositioni()>0) {agent.setPositioni(agent.getPositioni() - 1);}
+		}
+
 	}
 }
