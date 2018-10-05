@@ -6,12 +6,14 @@ import java.awt.*;
 import agent.Agent;
 
 public class UI extends JFrame implements Runnable{
+    
 	//Fields
     private Border Line = BorderFactory.createLineBorder(Color.black,3);
     private Agent Test_Agent;
 	private JFrame Terrain ;
     private Grid environment;
-	private JPanel GrillePan = new JPanel (new GridLayout(10,10));
+	private JPanel GrillePan;
+
     //Process
     public void run(){
             try {
@@ -21,6 +23,7 @@ public class UI extends JFrame implements Runnable{
             }
             this.updateUI();
     }
+
     //Constructor
     public UI(Agent Test_Agent,Grid environment) {
         Terrain=new JFrame();
@@ -37,18 +40,17 @@ public class UI extends JFrame implements Runnable{
         Terrain.setVisible(true);
         Terrain.setExtendedState(Terrain.getExtendedState() | JFrame.MAXIMIZED_BOTH);
     }
-    //getter and setter
+
+    //Getter and setter
     public Grid getEnvironment() {
 		return environment;
 	}
 	public void setEnvironment(Grid environment) {
 		this.environment = environment;
 	}
-
     public Agent getTest_Agent() {
 		return Test_Agent;
 	}
-
 	public void setTest_Agent(Agent test_Agent) {
 		Test_Agent = test_Agent;
 	}
