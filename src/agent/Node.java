@@ -101,16 +101,16 @@ public class Node {
 		actions.add("ne rien faire");
 		actions.add("grab");
 		actions.add("aspire");
-		if (actualState.getPositionI() != 9) {
+		if (actualState.getPositionJ() != 9) {
 			actions.add("right");
 		}
-		if (actualState.getPositionI() != 0) {
+		if (actualState.getPositionJ() != 0) {
 			actions.add("left");
 		}
-		if (actualState.getPositionJ() != 9) {
+		if (actualState.getPositionI() != 9) {
 			actions.add("down");
 		}
-		if (actualState.getPositionJ() != 0) {
+		if (actualState.getPositionI() != 0) {
 			actions.add("up");
 		}
 		return actions;
@@ -118,7 +118,7 @@ public class Node {
 	}
 
 	public boolean testGoal() {
-		if (actualState.getDirt() != 0 && action != "grab") {
+		if (actualState.getDirt() == 0 && action == "aspire") {
 			return true;
 		} else {
 			return false;
@@ -126,7 +126,7 @@ public class Node {
 	}
 	
 	public int costAction(String intent) {
-		if (intent != "Ne rien faire" && !(intent.isEmpty())) {
+		if (intent != "ne rien faire" && !(intent.isEmpty())) {
 			return (1);
 		} else
 			return (0);

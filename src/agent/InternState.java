@@ -11,6 +11,7 @@ public class InternState {
 	// Constructor
 
 	public InternState(boolean iamAlive, Grid belief, String[] intent) {
+		super();
 		IamAlive = iamAlive;
 		this.belief = belief;
 		this.setIntent(intent);

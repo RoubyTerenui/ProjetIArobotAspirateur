@@ -95,28 +95,33 @@ public class Agent {// Agent which will evolve in the environment he is based on
 
 		if (intent == "grab") {
 			if (environment.getBoxI(positioni, positionj).getJewel() == 1) {
-				mesureDePerformance += 1;
+				mesureDePerformance += 10;
 			}
 			this.getEffectors().grab(environment.getBoxI(positioni, positionj));
+			this.getEffectors().grab(this.getBelief().getBoxI(positioni, positionj));
 			electricityUsed += 1;
+			mesureDePerformance-=1;
 		} else {
 			if (intent == "aspire") {
 				if (environment.getBoxI(positioni, positionj).getJewel() == 1) {
-					mesureDePerformance -= 1;
+					mesureDePerformance -=20;
 				}
 				if (environment.getBoxI(positioni, positionj).getDirt() == 1) {
-					mesureDePerformance += 1;
+					mesureDePerformance += 50;
 				}
 				this.getEffectors().aspire(environment.getBoxI(positioni, positionj));
+				this.getEffectors().aspire(this.getBelief().getBoxI(positioni, positionj));
 				electricityUsed += 1;
+				mesureDePerformance-=1;
 			} else {
-				if (intent != "Ne rien faire") {
+				if (intent != "Ne rien faire" && intent!="" && intent!=null) {
 					this.getEffectors().move(this, intent);
 					electricityUsed += 1;
+					mesureDePerformance-=1;
 				}
 			}
 		}
-		return (environment.getBoxI(this.positioni, this.positionj));
+		return (this.getBelief().getBoxI(this.positioni, this.positionj));
 	}
 	
 	// Other Methods
