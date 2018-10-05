@@ -87,9 +87,11 @@ public class Agent {// Agent which will evolve in the environment he is based on
 	public InternState getBdi() {
 		return bdi;
 	}
+
 	public void setBdi(InternState bdi) {
 		this.bdi = bdi;
 	}
+
 	// Other Methods
 	public Box act(String intent, Grid environment) {
 
@@ -118,9 +120,7 @@ public class Agent {// Agent which will evolve in the environment he is based on
 		}
 		return (environment.getBoxI(this.positioni, this.positionj));
 	}
-	
-	// Other Methods
-	
+
 	public void observ(Grid environment) {
 		this.setBelief(this.sensors.analyzeEnvironment(environment));
 	}
@@ -159,6 +159,10 @@ public class Agent {// Agent which will evolve in the environment he is based on
 		} else {
 			return null;
 		}
+	}
+
+	public Node aStar(Node node_start, Grid environment){
+		return null;
 	}
 
 }

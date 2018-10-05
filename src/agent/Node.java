@@ -14,6 +14,7 @@ public class Node {
 	private int depth;
 	private int cost;
 	private boolean cutoff;
+	private int heuristique;
 
 	// Constructor
 	public Node(Node parent, Box actualState, String action, int depth, int cost) {
