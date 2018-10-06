@@ -17,7 +17,7 @@ public class Node {
 	private int heuristique;
 
 	// Constructor
-	public Node(Node parent, Box actualState, String action, int depth, int cost) {
+	public Node(Node parent, Box actualState, String action, int depth, int cost, int heuristique) {
 		super();
 		this.parent = parent;
 		this.actualState = actualState;
@@ -25,10 +25,11 @@ public class Node {
 		this.depth = depth;
 		this.cost = cost;
 		this.setcutoff(false);
+		this.heuristique = heuristique;
 	}
 	public Node(Box actualState) {
 		super();
-		this.parent=new Node(null,null,null,-1,0);
+		this.parent=new Node(null,null,null,-1,0, 0);
 		this.actualState=actualState;
 		this.action="ne rien faire";
 		this.depth=0;
@@ -84,13 +85,21 @@ public class Node {
 		this.cutoff = result;
 	}
 
+	public int getHeuristique() {
+		return heuristique;
+	}
+
+	public void setHeuristique(int heuristique) {
+		this.heuristique = heuristique;
+	}
+
 	// Expand Function used in the search
 	public List<Node> expand(Grid belief) {
 		List<Node> successors = new ArrayList<Node>();
 		List<String> actions = this.successor_Node();
 		for (String act : actions) {
 			Agent agent = new Agent(actualState.getPositionI(), actualState.getPositionJ());
-			Node s = new Node(this, agent.act(act, belief), act, this.depth + 1,costAction(action)+parent.getCost());
+			Node s = new Node(this, agent.act(act, belief), act, this.depth + 1,costAction(action)+parent.getCost(), 0);
 			successors.add(s);
 		}
 		return successors;
@@ -131,6 +140,10 @@ public class Node {
 			return (1);
 		} else
 			return (0);
+	}
+
+	public int sumCost(){
+		return this.cost + this.heuristique;
 	}
 
 }

@@ -1,5 +1,6 @@
 package agent;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import environnement.Box;
@@ -161,8 +162,47 @@ public class Agent {// Agent which will evolve in the environment he is based on
 		}
 	}
 
-	public Node aStar(Node node_start, Grid environment){
+	public Node aStar(Node nodeStart, Grid environment){
+		List<Node> nodeList = new ArrayList<Node>();
+		nodeList.add(nodeStart);
 		return null;
+	}
+
+	public int norme(Node nodeStart, Node nodeGoal){
+		return Math.abs(nodeGoal.getActualState().getPositionI() - nodeStart.getActualState().getPositionI()) + Math.abs(nodeGoal.getActualState().getPositionJ() - nodeStart.getActualState().getPositionJ());
+	}
+
+	//Ref http://www.algolist.net/Algorithms/Sorting/Quicksort
+	public int partition(List<Node> nodeList, int left, int right)
+	{
+		int i = left, j = right;
+		Node tmp;
+		Node pivot = nodeList.get((left + right) / 2);
+
+		while (i <= j) {
+			while (nodeList.get(i).sumCost() < pivot.sumCost())
+				i++;
+			while (nodeList.get(j).sumCost() > pivot.sumCost())
+				j--;
+			if (i <= j) {
+				tmp = nodeList.get(i);
+				Node n = nodeList.get(j);
+				nodeList.get(i) = n;
+				nodeList.get(j) = tmp;
+				i++;
+				j--;
+			}
+		}
+
+		return i;
+	}
+
+	public void quickSort(int arr[], int left, int right) {
+		int index = partition(arr, left, right);
+		if (left < index - 1)
+			quickSort(arr, left, index - 1);
+		if (index < right)
+			quickSort(arr, index, right);
 	}
 
 }
