@@ -1,16 +1,19 @@
 package agent;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import environnement.Box;
 import environnement.Grid;
 
 public class InternState {
 	private boolean IamAlive;
 	private Grid belief;
-	private String[] intent;
+	private List<String> intent;
 
 	// Constructor
 
-	public InternState(boolean iamAlive, Grid belief, String[] intent) {
+	public InternState(boolean iamAlive, Grid belief, List<String> intent) {
 		super();
 		IamAlive = iamAlive;
 		this.belief = belief;
@@ -21,7 +24,7 @@ public class InternState {
 		super();
 		IamAlive = true;
 		belief = new Grid(new Box[10][10]);
-		this.intent = new String[0];
+		this.intent = new ArrayList<String>();
 	}
 
 	// Getter and Setter
@@ -41,11 +44,11 @@ public class InternState {
 		IamAlive = iamAlive;
 	}
 
-	public String[] getIntent() {
+	public List<String> getIntent() {
 		return intent;
 	}
 
-	public void setIntent(String[] intent) {
+	public void setIntent(List<String> intent) {
 		this.intent = intent;
 	}
 }

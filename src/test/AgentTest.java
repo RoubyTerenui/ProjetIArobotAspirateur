@@ -8,6 +8,9 @@ import environnement.Grid;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AgentTest {
 
 	@Test
@@ -41,6 +44,7 @@ public class AgentTest {
 	assertEquals(ag.getPositionj(),1);
 	assertEquals(envi.getBoxI(0, 1).getDirt(),0);
 	assertEquals(envi.getBoxI(0, 1).getJewel(),0);
+	
 	
 	ag.setPositioni(5);
 	ag.setPositionj(5);
@@ -82,5 +86,20 @@ public class AgentTest {
 		ag.observ(envi);
 		assertEquals(envi.getBoxI(0, 0).getDirt(), ag.getBelief().getBoxI(0, 0).getDirt());
 		assertEquals(envi.getBoxI(0, 0).getJewel(), ag.getBelief().getBoxI(0, 0).getJewel());
+	}
+	
+	
+	@Test
+	public void test_CreateIntent() {
+		Grid envi= new Grid(new Box[10][10]);
+		Agent ag=new Agent(2,1);
+		envi.getBoxI(9, 5).setDirt(1);
+		envi.getBoxI(9, 5).setJewel(1);
+
+		ag.observ(envi);
+		ag.createIntent(ag.getBdi().getBelief(),20);
+		for (String s : ag.getBdi().getIntent()) {
+			System.out.println(s);
+		}
 	}
 }

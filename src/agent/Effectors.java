@@ -19,14 +19,14 @@ public class Effectors {// Class regrouping all the action the agent can do and 
 
 	public void move(Agent agent, String string)  {
 		if (string == "right") {// look whether you move vertically or horizontally
-			if(agent.getPositionj()<99)
+			if(agent.getPositionj()<9)
 				{agent.setPositionj(agent.getPositionj() + 1);}
 		}
 		if (string == "left") {
 			if(agent.getPositionj()>0) {agent.setPositionj(agent.getPositionj() - 1);}
 		}
 		if (string == "down") {
-			if(agent.getPositioni()<99) {agent.setPositioni(agent.getPositioni() + 1);}
+			if(agent.getPositioni()<9) {agent.setPositioni(agent.getPositioni() + 1);}
 		}
 		if (string == "up") {
 			if(agent.getPositioni()>0) {agent.setPositioni(agent.getPositioni() - 1);}

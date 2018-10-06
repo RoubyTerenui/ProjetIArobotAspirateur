@@ -44,8 +44,6 @@ public class NodeTest {
 	nod11.setActualState(new Box(0,0,0,0));
 	List<String> actions = new ArrayList<String>();
 	actions.add("ne rien faire");
-	actions.add("grab");
-	actions.add("aspire");
 	actions.add("right");
 	actions.add("down");
 	assertEquals(actions.size(),nod11.successor_Node().size());
@@ -56,8 +54,6 @@ public class NodeTest {
 	nod11.setActualState(new Box(0,0,5,5));
 	List<String> actions2 = new ArrayList<String>();
 	actions2.add("ne rien faire");
-	actions2.add("grab");
-	actions2.add("aspire");
 	actions2.add("right");
 	actions2.add("left");
 	actions2.add("down");
@@ -70,8 +66,6 @@ public class NodeTest {
 	nod11.setActualState(new Box(0,0,1,0));
 	List<String> actions3 = new ArrayList<String>();
 	actions3.add("ne rien faire");
-	actions3.add("grab");
-	actions3.add("aspire");
 	actions3.add("right");
 	actions3.add("down");
 	actions3.add("up");
@@ -83,8 +77,6 @@ public class NodeTest {
 	nod11.setActualState(new Box(0,0,0,1));
 	List<String> actions4 = new ArrayList<String>();
 	actions4.add("ne rien faire");
-	actions4.add("grab");
-	actions4.add("aspire");
 	actions4.add("right");
 	actions4.add("left");
 	actions4.add("down");
@@ -96,8 +88,6 @@ public class NodeTest {
 	nod11.setActualState(new Box(0,0,9,9));
 	List<String> actions5 = new ArrayList<String>();
 	actions5.add("ne rien faire");
-	actions5.add("grab");
-	actions5.add("aspire");
 	actions5.add("left");
 	actions5.add("up");
 	assertEquals(actions5.size(),nod11.successor_Node().size());
@@ -108,8 +98,6 @@ public class NodeTest {
 	nod11.setActualState(new Box(0,0,9,0));
 	List<String> actions6 = new ArrayList<String>();
 	actions6.add("ne rien faire");
-	actions6.add("grab");
-	actions6.add("aspire");
 	actions6.add("right");
 	actions6.add("up");
 	for (int j=0; j<actions6.size(); j++) {
@@ -119,8 +107,6 @@ public class NodeTest {
 	nod11.setActualState(new Box(0,0,9,9));
 	List<String> actions7 = new ArrayList<String>();
 	actions7.add("ne rien faire");
-	actions7.add("grab");
-	actions7.add("aspire");
 	actions7.add("left");
 	actions7.add("up");
 	assertEquals(actions7.size(),nod11.successor_Node().size());
@@ -131,6 +117,7 @@ public class NodeTest {
 	Grid environment=new Grid(new Box[10][10]);
 	environment.getBoxI(0, 1).setDirt(1);
 	environment.getBoxI(1, 0).setJewel(1);
+	Agent agent=new Agent(1,0);
 	List<Node> succ1=nod1.expand(environment);
 	System.out.println(nod1);
 	for (Node node : succ1) {

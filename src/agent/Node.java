@@ -29,7 +29,7 @@ public class Node {
 		super();
 		this.parent=new Node(null,null,null,-1,0);
 		this.actualState=actualState;
-		this.action="ne rien faire";
+		this.action="";
 		this.depth=0;
 		this.cost=0;
 		this.setcutoff(false);
@@ -88,19 +88,48 @@ public class Node {
 		List<Node> successors = new ArrayList<Node>();
 		List<String> actions = this.successor_Node();
 		for (String act : actions) {
-			Agent agent = new Agent(actualState.getPositionI(), actualState.getPositionJ());
-			Node s = new Node(this, agent.act(act, belief), act, this.depth + 1,costAction(action)+parent.getCost());
+			Node s = new Node(this, simulAct(act, belief), act, this.depth + 1,costAction(action)+parent.getCost());
 			successors.add(s);
 		}
 		return successors;
 	}
 	
-
+	public Box simulAct(String intent, Grid environment) {
+		Box res=environment.getBoxI(actualState.getPositionI(),actualState.getPositionJ()).clone();
+		if (intent == "grab") {
+			res.setJewel(0);			
+		} else {
+			if (intent == "aspire") {
+				res.setDirt(0);
+				res.setJewel(0);
+			} else {
+				if (intent == "right") {// look whether you move vertically or horizontally
+					if(res.getPositionJ()<99)
+						{res=environment.getBoxI(actualState.getPositionI(),actualState.getPositionJ()+1).clone();}
+				}
+				if (intent == "left") {
+					{res=environment.getBoxI(actualState.getPositionI(),actualState.getPositionJ()-1).clone();}
+				}
+				if (intent == "down") {
+					{res=environment.getBoxI(actualState.getPositionI()+1,actualState.getPositionJ()).clone();}
+				}
+				if (intent == "up") {
+					{res=environment.getBoxI(actualState.getPositionI()-1,actualState.getPositionJ()).clone();}
+				}
+			}
+		}
+		return res;
+	}
 	public List<String> successor_Node() {
 		List<String> actions = new ArrayList<String>();
-		actions.add("ne rien faire");
-		actions.add("grab");
-		actions.add("aspire");
+		//actions.add("ne rien faire");
+		
+		if(actualState.getJewel()==1) {
+			actions.add("grab");
+		}
+		if (actualState.getDirt()==1) {
+			actions.add("aspire");
+		}
 		if (actualState.getPositionJ() != 9) {
 			actions.add("right");
 		}
@@ -118,7 +147,7 @@ public class Node {
 	}
 
 	public boolean testGoal() {
-		if (actualState.getDirt() == 0 && action == "aspire") {
+		if (actualState.getDirt() == 0 && action == "aspire" ) {
 			return true;
 		} else {
 			return false;
