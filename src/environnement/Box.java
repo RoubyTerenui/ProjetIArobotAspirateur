@@ -8,6 +8,7 @@ public class Box {
     //Attributes
     private int jewel, dirt;
     private int positionI,positionJ;
+
     //Construct
     public Box(int j, int d,int positionI,int positionJ)
     {

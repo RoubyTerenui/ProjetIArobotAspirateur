@@ -88,9 +88,11 @@ public class Agent {// Agent which will evolve in the environment he is based on
 	public InternState getBdi() {
 		return bdi;
 	}
+
 	public void setBdi(InternState bdi) {
 		this.bdi = bdi;
 	}
+
 	// Other Methods
 	public Box act(String intent, Grid environment) {
 
@@ -131,7 +133,7 @@ public class Agent {// Agent which will evolve in the environment he is based on
 			this.act(this.getBdi().getIntent().get(this.getBdi().getIntent().size()-j-1),environment);
 		}
 	}
-	
+  
 	public void observ(Grid environment) {
 		this.setBelief(this.sensors.analyzeEnvironment(environment));
 	}
@@ -182,6 +184,49 @@ public class Agent {// Agent which will evolve in the environment he is based on
 		} else {
 			return null;
 		}
+	}
+
+	public Node aStar(Node nodeStart, Grid environment){
+		List<Node> nodeList = new ArrayList<Node>();
+		nodeList.add(nodeStart);
+		return null;
+	}
+
+	public int norme(Node nodeStart, Node nodeGoal){
+		return Math.abs(nodeGoal.getActualState().getPositionI() - nodeStart.getActualState().getPositionI()) + Math.abs(nodeGoal.getActualState().getPositionJ() - nodeStart.getActualState().getPositionJ());
+	}
+
+	//Ref http://www.algolist.net/Algorithms/Sorting/Quicksort
+	public int partition(List<Node> nodeList, int left, int right)
+	{
+		int i = left, j = right;
+		Node tmp;
+		Node pivot = nodeList.get((left + right) / 2);
+
+		while (i <= j) {
+			while (nodeList.get(i).sumCost() < pivot.sumCost())
+				i++;
+			while (nodeList.get(j).sumCost() > pivot.sumCost())
+				j--;
+			if (i <= j) {
+				tmp = nodeList.get(i);
+				Node n = nodeList.get(j);
+				nodeList.get(i) = n;
+				nodeList.get(j) = tmp;
+				i++;
+				j--;
+			}
+		}
+
+		return i;
+	}
+
+	public void quickSort(int arr[], int left, int right) {
+		int index = partition(arr, left, right);
+		if (left < index - 1)
+			quickSort(arr, left, index - 1);
+		if (index < right)
+			quickSort(arr, index, right);
 	}
 
 }
