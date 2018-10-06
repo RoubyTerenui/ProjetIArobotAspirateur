@@ -1,5 +1,7 @@
 package environnement;
 
+import com.sun.org.apache.xalan.internal.xslt.EnvironmentCheck;
+
 public class Grid implements Runnable {
 	// Grid of the environment with the functions that generate randomly dust and
 	// jewels
@@ -22,7 +24,7 @@ public class Grid implements Runnable {
 	}
 
 	public Grid clone() {
-		Grid res=new Grid(new Box[10][10]);
+		Grid res = new Grid(new Box[10][10]);
 		res.mesureDePerformance = this.getMesureDePerformance();
 		res.environmentRunning = this.environmentRunning;
 		for (int i = 0; i < 10; i++) {
@@ -37,8 +39,9 @@ public class Grid implements Runnable {
 	public Box getBoxI(int i, int j) {
 		return (grid[i][j]);
 	}
+
 	public void setBoxI(int i, int j, Box box) {
-		grid[i][j]=box.clone();
+		grid[i][j] = box.clone();
 	}
 
 	public Box[][] getGrid() {
@@ -53,6 +56,14 @@ public class Grid implements Runnable {
 		this.mesureDePerformance = mesureDePerformance;
 	}
 
+	public boolean isEnvironmentRunning() {
+		return environmentRunning;
+	}
+
+	public void setEnvironmentRunning(boolean environmentRunning) {
+		this.environmentRunning = environmentRunning;
+	}
+
 	// Other Methods
 	public void generateEnvironment() {
 		for (int i = 0; i < 10; i++) {
@@ -65,7 +76,14 @@ public class Grid implements Runnable {
 
 	@Override
 	public void run() {// Method that indicate what the thread will do
+		int i = 0;
 		while (environmentRunning) {
+			i++;
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 			generateEnvironment();
 		}
 	}

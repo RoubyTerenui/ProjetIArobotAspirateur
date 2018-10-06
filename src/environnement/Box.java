@@ -68,7 +68,7 @@ public class Box {
 
     public int generateJewel(){
         double proba = Math.random() * 1000;
-        if(proba < 50) {
+        if(proba < 5) {
             jewel = 1;
             return jewel;
         }
@@ -77,7 +77,7 @@ public class Box {
 
     public int generateDirt(){
         double proba = Math.random() * 1000;
-        if(proba < 200) {
+        if(proba < 20) {
             dirt = 1;
             return dirt;
         }

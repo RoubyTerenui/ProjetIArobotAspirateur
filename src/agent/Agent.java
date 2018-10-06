@@ -98,32 +98,56 @@ public class Agent {// Agent which will evolve in the environment he is based on
 
 		if (intent == "grab") {
 			if (environment.getBoxI(positioni, positionj).getJewel() == 1) {
-				mesureDePerformance += 1;
+				mesureDePerformance += 10;
 			}
 			this.getEffectors().grab(environment.getBoxI(positioni, positionj));
+			this.getEffectors().grab(this.getBelief().getBoxI(positioni, positionj));
 			electricityUsed += 1;
+			mesureDePerformance-=1;
 		} else {
 			if (intent == "aspire") {
 				if (environment.getBoxI(positioni, positionj).getJewel() == 1) {
-					mesureDePerformance -= 1;
+					mesureDePerformance -=20;
 				}
 				if (environment.getBoxI(positioni, positionj).getDirt() == 1) {
-					mesureDePerformance += 1;
+					mesureDePerformance += 50;
 				}
 				this.getEffectors().aspire(environment.getBoxI(positioni, positionj));
+				this.getEffectors().aspire(this.getBelief().getBoxI(positioni, positionj));
 				electricityUsed += 1;
+				mesureDePerformance-=1;
 			} else {
-				if (intent != "Ne rien faire") {
+				if (intent != "Ne rien faire" && intent!="" && intent!=null) {
 					this.getEffectors().move(this, intent);
 					electricityUsed += 1;
+					mesureDePerformance-=1;
 				}
 			}
 		}
-		return (environment.getBoxI(this.positioni, this.positionj));
+		return (this.getBelief().getBoxI(this.positioni, this.positionj));
 	}
-
+	
+	public void executeIntent(Grid environment) {
+		for(int j=0;j<this.getBdi().getIntent().size();j++) {
+			System.out.println(this.getBdi().getIntent().get(this.getBdi().getIntent().size()-j-1));
+			this.act(this.getBdi().getIntent().get(this.getBdi().getIntent().size()-j-1),environment);
+		}
+	}
+  
 	public void observ(Grid environment) {
 		this.setBelief(this.sensors.analyzeEnvironment(environment));
+	}
+	
+	public void createIntent(Grid environment,int l) {
+		String action="initial";
+		List<String> res=new ArrayList<String>();
+		Node nodes=depth_LimitedSearch(environment, l);
+		while (action!="") {
+			action=nodes.getAction();
+			nodes=nodes.getParent();
+			res.add(action);
+		}
+		this.getBdi().setIntent(res);
 	}
 	
 	public Node depth_LimitedSearch(Grid environment, int l) {
