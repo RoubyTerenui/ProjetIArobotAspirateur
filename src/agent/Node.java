@@ -94,11 +94,14 @@ public class Node {
 	}
 
 	// Expand Function used in the search
-	public List<Node> expand(Grid belief) {
+	public List<Node> expand(Grid belief,Agent agent) {
 		List<Node> successors = new ArrayList<Node>();
 		List<String> actions = this.successor_Node();
 		for (String act : actions) {
 			Node s = new Node(this, simulAct(act, belief), act, this.depth + 1,costAction(action)+parent.getCost(),0);
+			if (agent!=null) {
+				s.affectHeuristique(agent);
+			}
 			successors.add(s);
 		}
 		return successors;
@@ -114,22 +117,27 @@ public class Node {
 				res.setJewel(0);
 			} else {
 				if (intent == "right") {// look whether you move vertically or horizontally
-					if(res.getPositionJ()<99)
+					if(res.getPositionJ()<9)
 						{res=environment.getBoxI(actualState.getPositionI(),actualState.getPositionJ()+1).clone();}
 				}
 				if (intent == "left") {
-					{res=environment.getBoxI(actualState.getPositionI(),actualState.getPositionJ()-1).clone();}
+					if(res.getPositionJ()>0)
+						{res=environment.getBoxI(actualState.getPositionI(),actualState.getPositionJ()-1).clone();}
 				}
 				if (intent == "down") {
+					if(res.getPositionI()<9)
 					{res=environment.getBoxI(actualState.getPositionI()+1,actualState.getPositionJ()).clone();}
 				}
 				if (intent == "up") {
+					if(res.getPositionI()>0)
 					{res=environment.getBoxI(actualState.getPositionI()-1,actualState.getPositionJ()).clone();}
 				}
 			}
 		}
 		return res;
 	}
+	
+	
 	public List<String> successor_Node() {
 		List<String> actions = new ArrayList<String>();
 		//actions.add("ne rien faire");
@@ -155,14 +163,6 @@ public class Node {
 		return actions;
 
 	}
-
-	public boolean testGoal() {
-		if (actualState.getDirt() == 0 && action == "aspire" ) {
-			return true;
-		} else {
-			return false;
-		}
-	}
 	
 	public int costAction(String intent) {
 		if (intent != "ne rien faire" && !(intent.isEmpty())) {
@@ -174,5 +174,9 @@ public class Node {
 	public int sumCost(){
 		return this.cost + this.heuristique;
 	}
-
+	
+	public void affectHeuristique(Agent agent) {
+		Box goal=agent.findBoxGoal();
+		this.setHeuristique(agent.norme(this.getActualState(), goal));
+	}
 }

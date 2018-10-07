@@ -16,6 +16,7 @@ public class main {
 		// Bloc de test de l'ui
 		Agent Test_Agent = new Agent(0, 0);
 		Grid environment = new Grid(new Box[10][10]);
+		environment.generateEnvironment();
 		UI Test_UI = new UI(Test_Agent, environment);
 		// environment Thread
 		Thread thread = new Thread(environment);
@@ -33,8 +34,6 @@ public class main {
 			Test_Agent.observ(environment);
 			Test_Agent.createIntent(environment, 20);
 			Test_Agent.executeIntent(environment);
-			
-//			Test_Agent.act("down", environment);
 		}
 	}
 }
