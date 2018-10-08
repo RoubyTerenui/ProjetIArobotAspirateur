@@ -19,7 +19,7 @@ public class UI extends JFrame implements Runnable {
 	public void run() {
 		while (true) {
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(10);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

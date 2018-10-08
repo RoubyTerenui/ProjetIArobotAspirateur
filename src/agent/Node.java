@@ -27,15 +27,17 @@ public class Node {
 		this.setcutoff(false);
 		this.heuristique = heuristique;
 	}
+
 	public Node(Box actualState) {
 		super();
-		this.parent=new Node(null,null,null,-1,0, 0);
-		this.actualState=actualState;
-		this.action="";
-		this.depth=0;
-		this.cost=0;
+		this.parent = new Node(null, null, null, -1, 0, 0);
+		this.actualState = actualState;
+		this.action = "";
+		this.depth = 0;
+		this.cost = 0;
 		this.setcutoff(false);
 	}
+
 	// Getter and Setter
 	public Node getParent() {
 		return parent;
@@ -94,58 +96,61 @@ public class Node {
 	}
 
 	// Expand Function used in the search
-	public List<Node> expand(Grid belief,Agent agent) {
+	public List<Node> expand(Grid belief, Agent agent) {
 		List<Node> successors = new ArrayList<Node>();
 		List<String> actions = this.successor_Node();
 		for (String act : actions) {
-			Node s = new Node(this, simulAct(act, belief), act, this.depth + 1,costAction(action)+parent.getCost(),0);
-			if (agent!=null) {
+			Node s = new Node(this, simulAct(act, belief), act, this.depth + 1, costAction(action) + parent.getCost(),
+					0);
+			if (agent != null) {
 				s.affectHeuristique(agent);
 			}
 			successors.add(s);
 		}
 		return successors;
 	}
-	
+
 	public Box simulAct(String intent, Grid environment) {
-		Box res=environment.getBoxI(actualState.getPositionI(),actualState.getPositionJ()).clone();
+		Box res = environment.getBoxI(actualState.getPositionI(), actualState.getPositionJ()).clone();
 		if (intent == "grab") {
-			res.setJewel(0);			
+			res.setJewel(0);
 		} else {
 			if (intent == "aspire") {
 				res.setDirt(0);
 				res.setJewel(0);
 			} else {
 				if (intent == "right") {// look whether you move vertically or horizontally
-					if(res.getPositionJ()<9)
-						{res=environment.getBoxI(actualState.getPositionI(),actualState.getPositionJ()+1).clone();}
+					if (res.getPositionJ() < 9) {
+						res = environment.getBoxI(actualState.getPositionI(), actualState.getPositionJ() + 1).clone();
+					}
 				}
 				if (intent == "left") {
-					if(res.getPositionJ()>0)
-						{res=environment.getBoxI(actualState.getPositionI(),actualState.getPositionJ()-1).clone();}
+					if (res.getPositionJ() > 0) {
+						res = environment.getBoxI(actualState.getPositionI(), actualState.getPositionJ() - 1).clone();
+					}
 				}
 				if (intent == "down") {
-					if(res.getPositionI()<9)
-					{res=environment.getBoxI(actualState.getPositionI()+1,actualState.getPositionJ()).clone();}
+					if (res.getPositionI() < 9) {
+						res = environment.getBoxI(actualState.getPositionI() + 1, actualState.getPositionJ()).clone();
+					}
 				}
 				if (intent == "up") {
-					if(res.getPositionI()>0)
-					{res=environment.getBoxI(actualState.getPositionI()-1,actualState.getPositionJ()).clone();}
+					if (res.getPositionI() > 0) {
+						res = environment.getBoxI(actualState.getPositionI() - 1, actualState.getPositionJ()).clone();
+					}
 				}
 			}
 		}
 		return res;
 	}
-	
-	
+
 	public List<String> successor_Node() {
 		List<String> actions = new ArrayList<String>();
-		//actions.add("ne rien faire");
-		
-		if(actualState.getJewel()==1) {
+
+		if (actualState.getJewel() == 1) {
 			actions.add("grab");
 		}
-		if (actualState.getDirt()==1) {
+		if (actualState.getDirt() == 1) {
 			actions.add("aspire");
 		}
 		if (actualState.getPositionJ() != 9) {
@@ -163,20 +168,25 @@ public class Node {
 		return actions;
 
 	}
-	
+
 	public int costAction(String intent) {
-		if (intent != "ne rien faire" && !(intent.isEmpty())) {
+		if (!(intent.isEmpty())) {
 			return (1);
 		} else
 			return (0);
 	}
 
-	public int sumCost(){
+	public int sumCost() {
 		return this.cost + this.heuristique;
 	}
-	
+
 	public void affectHeuristique(Agent agent) {
-		Box goal=agent.findBoxGoal();
-		this.setHeuristique(agent.norme(this.getActualState(), goal));
+		Box goal = agent.findBoxGoal();
+		if (goal != null) {
+			this.setHeuristique(agent.norme(this.getActualState(), goal));
+		}
+		else {
+			this.setHeuristique(-1);
+		}
 	}
 }

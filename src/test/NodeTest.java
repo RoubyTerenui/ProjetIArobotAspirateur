@@ -25,19 +25,6 @@ public class NodeTest {
 	assertFalse(test.testGoal(nod3));
 	assertFalse(test.testGoal(nod4));
 	
-	Node nod5=new Node(new Node(new Box(1,0,0,0)),new Box(0,0,0,0),"grab",1,1,0);
-	Node nod6=new Node(new Node(new Box(1,1,0,0)),new Box(0,1,0,0),"grab",1,1,0);
-	Node nod7=new Node(new Node(new Box(1,0,0,0)),new Box(0,0,0,0),"aspire",1,1,0);
-	Node nod8=new Node(new Node(new Box(1,1,0,0)),new Box(0,0,0,0),"aspire",1,1,0);
-	Node nod30=new Node(new Node(new Box(0,1,0,0)),new Box(0,0,0,0),"aspire",1,1,0);
-	Node nod9=new Node(new Node(new Box(1,1,0,0)),new Box(1,1,0,0),"ne rien faire",1,1,0);
-	assertFalse(test.testGoal(nod5));
-	assertFalse(test.testGoal(nod6));
-	assertFalse(test.testGoal(nod7));
-	assertFalse(test.testGoal(nod8));
-	assertFalse(test.testGoal(nod30));
-	assertFalse(test.testGoal(nod9));
-	
 	Node nod10=new Node(new Node(new Box(1,1,0,0)),new Box(1,1,0,0),"",1,1,0);
 	Node nod11=new Node(new Node(new Box(1,1,0,0)),new Box(1,1,0,0),"ne rien faire",1,1,0);
 	assertEquals(nod10.costAction(""),0);

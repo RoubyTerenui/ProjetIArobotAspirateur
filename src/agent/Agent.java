@@ -13,7 +13,6 @@ public class Agent {// Agent which will evolve in the environment he is based on
 	private int positioni;
 	private Sensors sensors;
 	private Effectors effectors;
-	private int electricityUsed;
 	private int mesureDePerformance;
 
 	// Constructor
@@ -23,7 +22,6 @@ public class Agent {// Agent which will evolve in the environment he is based on
 		this.bdi = bdi;
 		this.positionj = positionj;
 		this.positioni = positioni;
-		this.electricityUsed = electricityUsed;
 		this.mesureDePerformance = mesureDePerformance;
 	}
 
@@ -33,7 +31,6 @@ public class Agent {// Agent which will evolve in the environment he is based on
 		this.bdi = new InternState();
 		this.positionj = positionj;
 		this.positioni = positioni;
-		this.electricityUsed = 0;
 		this.mesureDePerformance = 0;
 	}
 
@@ -78,14 +75,6 @@ public class Agent {// Agent which will evolve in the environment he is based on
 		this.mesureDePerformance = mesureDePerformance;
 	}
 
-	public int getElectricityUsed() {
-		return electricityUsed;
-	}
-
-	public void setElectricityUsed(int electricityUsed) {
-		this.electricityUsed = electricityUsed;
-	}
-
 	public InternState getBdi() {
 		return bdi;
 	}
@@ -96,33 +85,49 @@ public class Agent {// Agent which will evolve in the environment he is based on
 
 	// Other Methods
 	public Box act(String intent, Grid environment) {
-
+		if (intent != "Ne rien faire" && intent != "" && intent != null) {
+			try {
+				Thread.sleep(1);
+			}catch(InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 		if (intent == "grab") {
-			if (environment.getBoxI(positioni, positionj).getJewel() == 1) {
+			if (this.getBelief().getBoxI(positioni, positionj).getJewel() == 1) {
 				mesureDePerformance += 5;
+			}
+			if (environment.getBoxI(positioni, positionj).getJewel() == 1) {
+				environment.setMesureDePerformance(environment.getMesureDePerformance()+5);
 			}
 			this.getEffectors().grab(environment.getBoxI(positioni, positionj));
 			this.getEffectors().grab(this.getBelief().getBoxI(positioni, positionj));
-			electricityUsed += 1;
 			mesureDePerformance -= 1;
+			environment.setMesureDePerformance(environment.getMesureDePerformance()-1);
 		} else {
 			if (intent == "aspire") {
 				if (environment.getBoxI(positioni, positionj).getJewel() == 1) {
+					environment.setMesureDePerformance(environment.getMesureDePerformance()-50);
+				}
+				if (this.getBelief().getBoxI(positioni, positionj).getJewel() == 1) {
 					mesureDePerformance -= 50;
 				}
 				if (environment.getBoxI(positioni, positionj).getDirt() == 1) {
+					environment.setMesureDePerformance(environment.getMesureDePerformance()+50);
+				}
+				if (this.getBelief().getBoxI(positioni, positionj).getDirt() == 1) {
 					mesureDePerformance += 50;
 				}
+				
 				this.getEffectors().aspire(environment.getBoxI(positioni, positionj));
 				this.getEffectors().aspire(this.getBelief().getBoxI(positioni, positionj));
-				electricityUsed += 1;
 				mesureDePerformance -= 1;
+				environment.setMesureDePerformance(environment.getMesureDePerformance()-1);
 			} else {
 				if (intent != "Ne rien faire" && intent != "" && intent != null) {
 					boolean res = this.getEffectors().move(this, intent);
 					if (res) {
-						electricityUsed += 1;
 						mesureDePerformance -= 1;
+						environment.setMesureDePerformance(environment.getMesureDePerformance()-1);
 					}
 				}
 			}
@@ -130,8 +135,8 @@ public class Agent {// Agent which will evolve in the environment he is based on
 		return (this.getBelief().getBoxI(this.positioni, this.positionj));
 	}
 
-	public void executeIntent(Grid environment) {
-		for (int j = 0; j < this.getBdi().getIntent().size(); j++) {
+	public void executeIntent(Grid environment,int limitIntent) {
+		for (int j = 0; j < Math.min(this.getBdi().getIntent().size(),limitIntent); j++) {
 			System.out.println(this.getBdi().getIntent().get(this.getBdi().getIntent().size() - j - 1));
 			this.act(this.getBdi().getIntent().get(this.getBdi().getIntent().size() - j - 1), environment);
 		}
@@ -141,10 +146,16 @@ public class Agent {// Agent which will evolve in the environment he is based on
 		this.setBelief(this.sensors.analyzeEnvironment(environment));
 	}
 
-	public void createIntent(Grid environment, int l) {
+	public void createIntent( boolean informed,int l) {
 		String action = "initial";
 		List<String> res = new ArrayList<String>();
-		Node nodes = aStar(environment);
+		Node nodes;
+		if (informed) {
+			nodes = aStar(this.getBelief());
+		}
+		else {
+			nodes=depth_LimitedSearch(this.getBelief(), l);
+		}
 		while (action != "") {
 			action = nodes.getAction();
 			nodes = nodes.getParent();
@@ -192,6 +203,9 @@ public class Agent {// Agent which will evolve in the environment he is based on
 	public Node aStar(Grid environment) {
 		Node nodeStart = new Node(environment.getBoxI(this.getPositioni(), this.getPositionj()));
 		nodeStart.affectHeuristique(this);
+		if(nodeStart.getHeuristique()==-1) {//to handle the no_Dirt case
+			return nodeStart;
+		}
 		List<Node> nodeList = new ArrayList<Node>();
 		nodeList.add(nodeStart);
 		while (!testGoal(nodeList.get(0))) {
@@ -224,8 +238,8 @@ public class Agent {// Agent which will evolve in the environment he is based on
 					res = box;
 				}
 			}
-		} finally {
-			
+		} catch(IndexOutOfBoundsException e) {
+			return null;
 		}
 		return res;
 	}
