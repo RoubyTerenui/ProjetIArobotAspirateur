@@ -8,6 +8,7 @@ import agent.Agent;
 import agent.Node;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -30,44 +31,34 @@ public class main {
 		double perf2=0;
 		List<Double> performances=new ArrayList<Double>();
 		List<Double> performancesReel=new ArrayList<Double>();
-//		while (test_Agent.getBdi().isIamAlive() && count<100) {
-//			perf=0;
-//			perf2=0;
-//			for(int j=0;j<500;j++) {
-//				try {
-//					Thread.sleep(10);
-//				} catch (InterruptedException e) {
-//					e.printStackTrace();
-//				}
-//				test_Agent.observ(environment);
-//				test_Agent.createIntent(true, 5);//boolean at true if informed at false otherwise the int is only used for the other case
-//				test_Agent.executeIntent(environment,2);
-//				perf+=test_Agent.getMesureDePerformance()-environment.getMesureDePerformance();
-//				perf2+=environment.getMesureDePerformance();
-//			}
-//			performances.add(perf/500);
-//			performancesReel.add(perf2/500);
-//			count++;
-//		}
-//		double s=0;
-//		for (Double double1 : performances) {
-//			s+=double1;
-//		}
-//		System.out.println(s/100);
-//		
-//		double s2=0;
-//		for (Double double1 : performancesReel) {
-//			s2+=double1;
-//		}
-//		System.out.println(s2/100);
+		while (test_Agent.getBdi().isIamAlive() && count<100) {
+			perf=0;
+			perf2=0;
+			for(int j=0;j<500;j++) {
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				test_Agent.observ(environment);
+				test_Agent.createIntent(true, 5);//boolean at true if informed at false otherwise the int is only used for the other case
+				test_Agent.executeIntent(environment,4);
+				perf+=test_Agent.getMesureDePerformance()-environment.getMesureDePerformance();
+				perf2+=environment.getMesureDePerformance();
+			}
+			performances.add(perf/500);
+			performancesReel.add(perf2/500);
+			count++;
+		}
+		count=performancesReel.indexOf((Collections.max(performancesReel)));
 		while (test_Agent.getBdi().isIamAlive()) {
 			try {
-				Thread.sleep(10);
+				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 			test_Agent.observ(environment);
-			test_Agent.createIntent(true, 5);//boolean at true if informed at false otherwise the int is only used for the other case
+			test_Agent.createIntent(true, count);//boolean at true if informed at false otherwise the int is only used for the other case
 			test_Agent.executeIntent(environment,4);
 		}
 	}

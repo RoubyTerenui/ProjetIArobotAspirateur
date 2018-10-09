@@ -80,7 +80,7 @@ public class Grid implements Runnable {
 		while (environmentRunning) {
 			i++;
 			try {
-				Thread.sleep(10);
+				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

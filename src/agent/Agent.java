@@ -87,7 +87,7 @@ public class Agent {// Agent which will evolve in the environment he is based on
 	public Box act(String intent, Grid environment) {
 		if (intent != "Ne rien faire" && intent != "" && intent != null) {
 			try {
-				Thread.sleep(1);
+				Thread.sleep(10);
 			}catch(InterruptedException e) {
 				e.printStackTrace();
 			}
